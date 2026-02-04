@@ -19,7 +19,8 @@ public class LeaveRequestDto {
 
     private Long employeeId;
 
-    private LeaveType leaveType;
+    private Long idLeaveType;
+
 
     private LocalDate startDate;
 
@@ -27,7 +28,7 @@ public class LeaveRequestDto {
 
     private Integer totalDays;
 
-    private LeaveStatus status;
+    private String status;
 
 
     private String reason;

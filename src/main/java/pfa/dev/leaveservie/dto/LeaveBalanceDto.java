@@ -15,7 +15,7 @@ public class LeaveBalanceDto {
 
     private Long employeeId;
 
-    private LeaveType leaveType;
+    private Long idLeaveType;
 
     private Integer remainingDays;
 
