@@ -12,4 +12,6 @@ public interface LeaveHistoryService {
 
     Integer getTotalLeaveTaken(Long employeeId, Long leaveTypeId);
 
+    Page<LeaveRequestDto> searchLeaveHistory(Long employeeId, String keyword, Pageable pageable);
+
 }

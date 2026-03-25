@@ -25,7 +25,6 @@ public class LeaveValidationController {
         );
     }
 
-    // ✔ Reject
     @PutMapping("/{id}/reject")
     public ResponseEntity<LeaveRequestDto> rejectLeave(
             @PathVariable Long id,

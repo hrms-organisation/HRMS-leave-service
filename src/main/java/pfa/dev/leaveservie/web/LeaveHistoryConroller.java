@@ -38,5 +38,17 @@ public class LeaveHistoryConroller {
         );
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<LeaveRequestDto>> searchLeaveHistory(
+            @RequestParam Long employeeId,
+            @RequestParam String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(
+                leaveHistoryService.searchLeaveHistory(employeeId, keyword, PageRequest.of(page, size))
+        );
+    }
+
 
 }

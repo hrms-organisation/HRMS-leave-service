@@ -16,4 +16,6 @@ public interface LeaveRequestService {
 
 
     Page<LeaveRequestDto> getPendingLeaveRequest( Pageable pageable); // Lister toutes les demandes en attente
+
+    Page<LeaveRequestDto> searchPendingLeaveRequest(String keyword, Pageable pageable);
 }

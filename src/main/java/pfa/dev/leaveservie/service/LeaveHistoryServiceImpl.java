@@ -68,6 +68,15 @@ public class LeaveHistoryServiceImpl implements LeaveHistoryService {
                 .sum();
     }
 
+    @Override
+    public Page<LeaveRequestDto> searchLeaveHistory(Long employeeId, String keyword, Pageable pageable) {
+        validateEmployee(employeeId);
+
+        return leaveRequestRepository
+                .searchEmployeeHistory(employeeId, keyword, pageable)
+                .map(leaveRequestMapper::toDto);
+    }
+
 
     private void validateEmployee(Long employeeId) {
         if (!leaveRequestRepository.existsByEmployeeId(employeeId)) {
