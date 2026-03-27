@@ -18,12 +18,13 @@ import pfa.dev.leaveservie.service.LeaveTypeService;
 @RestController
 @RequestMapping("/leave")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('HR')")
+@PreAuthorize("hasAnyRole('HR', 'EMPLOYEE')")
 public class LeaveTypeController {
     private final LeaveTypeService leaveTypeService;
 
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('HR')")
     public ResponseEntity<LeaveTypeDto> createLeaveType(
            @RequestBody LeaveTypeDto leaveType) {
         return ResponseEntity.ok(leaveTypeService.createLeaveType(leaveType));
@@ -43,6 +44,7 @@ public class LeaveTypeController {
     }
 
     @PatchMapping("/update/{id}")
+    @PreAuthorize("hasRole('HR')")
     public ResponseEntity<LeaveTypeDto> updateLeaveType(
             @RequestBody LeaveTypeDto leaveType , @PathVariable Long id
     ){
@@ -51,6 +53,7 @@ public class LeaveTypeController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('HR')")
     public void deleteLeaveType(
             @PathVariable Long id
     ){

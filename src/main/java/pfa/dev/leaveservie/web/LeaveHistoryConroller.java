@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pfa.dev.leaveservie.dto.LeaveRequestDto;
 
@@ -13,10 +14,12 @@ import pfa.dev.leaveservie.service.LeaveHistoryService;
 @RestController
 @RequestMapping("/history")
 @RequiredArgsConstructor
+
 public class LeaveHistoryConroller {
     private final LeaveHistoryService leaveHistoryService;
 
 
+    @PreAuthorize("hasAnyRole('HR', 'EMPLOYEE')")
 
     @GetMapping("get-by-employee/{idEmployee}")
 
@@ -24,12 +27,15 @@ public class LeaveHistoryConroller {
         return ResponseEntity.ok(leaveHistoryService.getLeaveHistoryByEmployee(idEmployee , PageRequest.of(page, size)));
 
     }
+    @PreAuthorize("hasRole('HR') ")
+
 
     @GetMapping("/get-by-status")
     public ResponseEntity<Page<LeaveRequestDto>> getLeaveHistoryByStatus(@RequestParam Long employeeId, @RequestParam Long leaveTypeId,
                                                                          @RequestParam(defaultValue = "0") int page  , @RequestParam(defaultValue = "10") int size){
         return ResponseEntity.ok(leaveHistoryService.getLeaveHistoryByType(employeeId, leaveTypeId, PageRequest.of(page, size)));
     }
+    @PreAuthorize("hasRole('HR') or hasRole('EMPLOYEE')")
 
     @GetMapping("/get-total")
     public ResponseEntity<Integer> getTakenLeaveHistory(@RequestParam Long employeeId, @RequestParam Long leaveTypeId) {
@@ -37,6 +43,7 @@ public class LeaveHistoryConroller {
                 leaveHistoryService.getTotalLeaveTaken(employeeId,leaveTypeId)
         );
     }
+    @PreAuthorize("hasRole('HR')  or hasRole('EMPLOYEE')")
 
     @GetMapping("/search")
     public ResponseEntity<Page<LeaveRequestDto>> searchLeaveHistory(
